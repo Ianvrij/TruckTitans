@@ -496,18 +496,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">More Information About Fleet Electrification</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#infoModal').modal('hide');">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-        <div class="modal-body">
-            <p>At Fleet Electrification Solutions, we are dedicated to helping fleet operators transition smoothly to electric vehicles. Our services include comprehensive evaluations, personalized compliance reports, and guidance on maximizing financial incentives. Contact us today to start your journey towards a sustainable future.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#infoModal').modal('hide');">
-                <i class="fas fa-times"></i> Close
-            </button>
-        </div>
+            <div class="modal-body">
+                <p>At Truck Titans, we are dedicated to helping fleet operators transition smoothly to electric vehicles. Our services include comprehensive evaluations, personalized compliance reports, and guidance on maximizing financial incentives. Contact us today to start your journey towards a sustainable future.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -645,7 +643,10 @@
         document.getElementById('residualValueText').innerText = `The estimated residual value of the ${make.toUpperCase()} ${model.toUpperCase()} is €${residualValue.toFixed(2)}.`;
         document.getElementById('residualValueResult').style.display = 'block';
     }
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
-
 </body>
 </html>
