@@ -164,6 +164,28 @@
             .navbar-brand {
                 font-size: 1.5rem;
             }
+            .contact-info .card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact-info .card:hover {
+    transform: translateY(-10px);
+}
+
+.contact-info a {
+    color: #004080;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    color: #002f66;
+    text-decoration: underline;
+}
+
+.contact-info .card i {
+    color: #004080;
+}
+
         }
     </style>
 </head>
@@ -171,7 +193,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <a class="navbar-brand" href="#">
-        <img src="Logo.png" alt="Company Logo"> 
+        <img src="logo.png" alt="Company Logo"> 
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
         <i class="fas fa-bars"></i>
@@ -452,33 +474,65 @@
     </div>
 </section>
 <!-- Contact Section -->
-<section id="contact" class="contact-info">
+<!-- Contact Section -->
+<section id="contact" class="contact-info py-5">
     <div class="container">
-        <h2 class="section-title text-center">Contact Information</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <h3>Ian van Rij</h3>
-                <p>Email: ian@trucktitans.com</p>
+        <h2 class="section-title text-center mb-5">Contact Information</h2>
+        <div class="row text-center">
+            <!-- Ian -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <i class="fas fa-user fa-2x mb-3 text-primary"></i>
+                        <h4 class="card-title">Ian van Rij</h4>
+                        <p class="card-text">Email: <a href="mailto:ian@trucktitans.com">ian@trucktitans.com</a></p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h3>Gijs van Zijl</h3>
-                <p>Email: gijs@trucktitans.com</p>
+            <!-- Gijs -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <i class="fas fa-user fa-2x mb-3 text-primary"></i>
+                        <h4 class="card-title">Gijs van Zijl</h4>
+                        <p class="card-text">Email: <a href="mailto:gijs@trucktitans.com">gijs@trucktitans.com</a></p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h3>Pooja Nanda Annaiah</h3>
-                <p>Email: pooja@trucktitans.com</p>
+            <!-- Pooja -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <i class="fas fa-user fa-2x mb-3 text-primary"></i>
+                        <h4 class="card-title">Pooja Nanda Annaiah</h4>
+                        <p class="card-text">Email: <a href="mailto:pooja@trucktitans.com">pooja@trucktitans.com</a></p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h3>Thijmen Goedings</h3>
-                <p>Email: thijmen@trucktitans.com</p>
+            <!-- Thijmen -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <i class="fas fa-user fa-2x mb-3 text-primary"></i>
+                        <h4 class="card-title">Thijmen Goedings</h4>
+                        <p class="card-text">Email: <a href="mailto:thijmen@trucktitans.com">thijmen@trucktitans.com</a></p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h3>Ralph van den Heuvel</h3>
-                <p>Email: ralph@trucktitans.com</p>
+            <!-- Ralph -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <i class="fas fa-user fa-2x mb-3 text-primary"></i>
+                        <h4 class="card-title">Ralph van den Heuvel</h4>
+                        <p class="card-text">Email: <a href="mailto:ralph@trucktitans.com">ralph@trucktitans.com</a></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Footer -->
 <footer class="footer text-center">
