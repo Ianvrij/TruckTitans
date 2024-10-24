@@ -185,6 +185,23 @@
 .contact-info .card i {
     color: #004080;
 }
+            #solution {
+    background-color: #f8f9fa; /* Light background to distinguish the section */
+    padding: 4rem 0;
+}
+
+#solution .btn-lg {
+    font-size: 1.2rem;
+    padding: 10px 30px;
+    transition: all 0.3s ease;
+}
+
+#solution .btn-lg:hover {
+    background-color: #002f66;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 
         }
     </style>
@@ -233,19 +250,26 @@
 
 <!-- Our Solution Section -->
 <section id="solution" class="py-5">
-    <div class="container">
-        <h2 class="section-title text-center">Our Solution</h2>
-        <p class="text-center mb-5">We offer a phased roadmap to help small and medium-sized fleet operators transition to electric vehicles, making the process financially viable and sustainable.</p>
+    <div class="container text-center">
         <div class="row">
-            <div class="col-md-6">
-                <!-- Tooltip Example -->
-                <p>We provide step-by-step electrification guidance. <span class="badge badge-info" data-toggle="tooltip" data-placement="top" title="We provide step-by-step electrification guidance.">Learn More</span></p>
+            <div class="col-lg-8 mx-auto">
+                <h2 class="section-title mb-4" style="font-size: 2.5rem; font-weight: 700; color: #004080;">
+                    Our Solution
+                </h2>
+                <p style="font-size: 1.25rem; color: #555; line-height: 1.8; margin-bottom: 30px;">
+                    We offer a phased roadmap to help small and medium-sized fleet operators transition to electric vehicles, making the process financially viable and sustainable.
+                </p>
+                <p style="font-size: 1.1rem; color: #666; margin-bottom: 20px;">
+                    We provide step-by-step electrification guidance.
+                </p>
+                <a href="#learn-more" class="btn btn-primary btn-lg px-4" style="background-color: #004080; border: none;">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </a>
             </div>
-            <div class="col-md-6">
-                            </div>
         </div>
     </div>
 </section>
+
 
 <!-- Fleet Information Form Section -->
 <section id="fleet-form" class="bg-light py-5">
