@@ -35,14 +35,14 @@
         }
 
         .navbar-brand img {
-            height: 60px;
+            height: 50px;
             width: auto;
             margin-right: 10px;
         }
 
         .navbar-brand {
             font-weight: 600;
-            font-size: 2rem;
+            font-size: 1.75rem;
             display: flex;
             align-items: center;
         }
@@ -53,7 +53,7 @@
 
         .hero-section {
             background: url('https://source.unsplash.com/1600x900/?electric,truck') no-repeat center center/cover;
-            height: 60vh;
+            height: 50vh;
             display: flex;
             align-items: center;
             position: relative;
@@ -78,38 +78,38 @@
         }
 
         .hero-content h1 {
-            font-size: 4rem;
+            font-size: 3rem;
             font-weight: 700;
             color: #f8f9fa;
         }
 
         .hero-content p {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             margin-bottom: 1.5rem;
             color: #f8f9fa;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 600;
             margin-bottom: 1rem;
             color: #004080;
         }
 
         .contact-info {
-            padding: 4rem 0;
+            padding: 3rem 0;
             background-color: #f8f9fa;
         }
 
         .contact-info h3 {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #004080;
             margin-bottom: 1.5rem;
         }
 
         .contact-info p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #333;
             margin-bottom: 0.5rem;
         }
@@ -139,74 +139,47 @@
             border-radius: 0.5rem;
         }
 
-        .modal-header {
-            border-bottom: none;
-        }
-
-        .modal-footer {
-            border-top: none;
-        }
-
         /* Responsive Styles */
         @media (max-width: 767px) {
             .hero-section {
-                height: 50vh;
+                height: 45vh;
             }
 
             .hero-content h1 {
-                font-size: 2.5rem;
+                font-size: 2.25rem;
             }
 
             .hero-content p {
-                font-size: 1.25rem;
+                font-size: 1.2rem;
             }
 
             .navbar-brand {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
+
             .contact-info .card {
-    transition: transform 0.3s ease-in-out;
-}
+                transition: transform 0.3s ease-in-out;
+            }
 
-.contact-info .card:hover {
-    transform: translateY(-10px);
-}
+            .contact-info .card:hover {
+                transform: translateY(-10px);
+            }
 
-.contact-info a {
-    color: #004080;
-    text-decoration: none;
-}
+            #solution .btn-lg {
+                font-size: 1rem;
+                padding: 8px 25px;
+            }
 
-.contact-info a:hover {
-    color: #002f66;
-    text-decoration: underline;
-}
-
-.contact-info .card i {
-    color: #004080;
-}
-            #solution {
-    background-color: #f8f9fa; /* Light background to distinguish the section */
-    padding: 4rem 0;
-}
-
-#solution .btn-lg {
-    font-size: 1.2rem;
-    padding: 10px 30px;
-    transition: all 0.3s ease;
-}
-
-#solution .btn-lg:hover {
-    background-color: #002f66;
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
+            #solution .btn-lg:hover {
+                background-color: #002f66;
+                color: white;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
         }
     </style>
 </head>
 <body>
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <a class="navbar-brand" href="#">
@@ -242,7 +215,7 @@
 <!-- Hero Section -->
 <header class="hero-section">
     <div class="container hero-content">
-        <h1 class="display-4">Fleet Solutions</h1>
+        <h1 class="display-4">Fleet Electrification Solutions</h1>
         <p class="lead">Interactive planning for modern fleet operators</p>
         <a href="#solution" class="btn btn-outline-light btn-lg mt-4">Discover More</a>
     </div>
