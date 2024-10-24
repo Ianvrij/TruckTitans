@@ -599,128 +599,129 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 
-    // Add Vehicle Function
-    function addVehicle() {
-        const vehicleList = document.getElementById('vehicleList');
-        const vehicleIndex = vehicleList.children.length + 1;
+// Add Vehicle Function
+function addVehicle() {
+    const vehicleList = document.getElementById('vehicleList');
+    const vehicleIndex = vehicleList.children.length + 1; // Increment vehicle index
 
-        const vehicleItem = document.createElement('div');
-        vehicleItem.className = 'vehicle-item';
+    const vehicleItem = document.createElement('div');
+    vehicleItem.className = 'vehicle-item mb-4';
 
-        vehicleItem.innerHTML = `
-            <h5>Vehicle ${vehicleIndex}</h5>
-            <div class="form-group">
-                <label for="vehicleType${vehicleIndex}">Vehicle Type:</label>
-                <select id="vehicleType${vehicleIndex}" name="vehicleType" class="form-control">
-                    <option value="" disabled selected>Select Type</option>
-                    <option value="light">Light Commercial Vehicle</option>
-                    <option value="medium">Medium Truck</option>
-                    <option value="heavy">Heavy Truck</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="fuelType${vehicleIndex}">Current Fuel Type:</label>
-                <select id="fuelType${vehicleIndex}" name="fuelType" class="form-control">
-                    <option value="" disabled selected>Select Fuel Type</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="hvo">HVO (Hydrotreated Vegetable Oil)</option>
-                    <option value="electric">Electric</option>
-                    <option value="hybrid">Hybrid</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="avgDistance${vehicleIndex}">Average Distance per Day (km):</label>
-                <input type="number" id="avgDistance${vehicleIndex}" name="avgDistance" class="form-control" required min="0">
-            </div>
-            <div class="form-group">
-                <label for="co2Emissions${vehicleIndex}">Current Average CO2 Emissions (kg per year):</label>
-                <input type="number" id="co2Emissions${vehicleIndex}" name="co2Emissions" class="form-control" required min="0">
-            </div>
-        `;
+    vehicleItem.innerHTML = `
+        <h5>Vehicle ${vehicleIndex}</h5>
+        <div class="form-group">
+            <label for="vehicleType${vehicleIndex}">Vehicle Type:</label>
+            <select id="vehicleType${vehicleIndex}" name="vehicleType" class="form-control">
+                <option value="" disabled selected>Select Type</option>
+                <option value="light">Light Commercial Vehicle</option>
+                <option value="medium">Medium Truck</option>
+                <option value="heavy">Heavy Truck</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fuelType${vehicleIndex}">Current Fuel Type:</label>
+            <select id="fuelType${vehicleIndex}" name="fuelType" class="form-control">
+                <option value="" disabled selected>Select Fuel Type</option>
+                <option value="diesel">Diesel</option>
+                <option value="hvo">HVO (Hydrotreated Vegetable Oil)</option>
+                <option value="electric">Electric</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="avgDistance${vehicleIndex}">Average Distance per Day (km):</label>
+            <input type="number" id="avgDistance${vehicleIndex}" name="avgDistance" class="form-control" required min="0">
+        </div>
+        <div class="form-group">
+            <label for="co2Emissions${vehicleIndex}">Current Average CO2 Emissions (kg per year):</label>
+            <input type="number" id="co2Emissions${vehicleIndex}" name="co2Emissions" class="form-control" required min="0">
+        </div>
+    `;
 
-        vehicleList.appendChild(vehicleItem);
-    }
+    vehicleList.appendChild(vehicleItem); // Append the new vehicle form
+}
 
-    // Evaluate Fleet Function
-    function evaluateFleet() {
-        const vehicleList = document.getElementById('vehicleList');
-        const vehicleCount = vehicleList.children.length;
-        let resultText = "";
+// Evaluate Fleet Function
+function evaluateFleet() {
+    const vehicleList = document.getElementById('vehicleList');
+    const vehicleCount = vehicleList.children.length;
+    let resultText = "";
 
-        if (vehicleCount === 0) {
-            resultText = "Please add at least one vehicle to evaluate your fleet.";
-        } else {
-            let dieselCount = 0;
-            for (let i = 0; i < vehicleCount; i++) {
-                const fuelType = document.getElementById(`fuelType${i + 1}`).value;
-                if (fuelType === 'diesel') {
-                    dieselCount++;
-                }
+    if (vehicleCount === 0) {
+        resultText = "Please add at least one vehicle to evaluate your fleet.";
+    } else {
+        let dieselCount = 0;
+        for (let i = 0; i < vehicleCount; i++) {
+            const fuelType = document.getElementById(`fuelType${i + 1}`).value;
+            if (fuelType === 'diesel') {
+                dieselCount++;
             }
-
-            resultText = dieselCount > 0
-                ? `Your fleet includes ${dieselCount} diesel vehicle(s). Consider a phased approach to electrification or explore HVO as a transitional solution.`
-                : "Your fleet is well-positioned for electrification. Consider leveraging available government incentives.";
         }
 
-        document.getElementById('resultText').innerText = resultText;
-        document.getElementById('evaluationResult').style.display = 'block';
+        resultText = dieselCount > 0
+            ? `Your fleet includes ${dieselCount} diesel vehicle(s). Consider a phased approach to electrification or explore HVO as a transitional solution.`
+            : "Your fleet is well-positioned for electrification. Consider leveraging available government incentives.";
     }
 
-    // Calculate Residual Value Function
-    function calculateResidualValue() {
-        const make = document.getElementById('make').value;
-        const model = document.getElementById('model').value;
-        const age = parseFloat(document.getElementById('age').value);
-        const mileage = parseFloat(document.getElementById('mileage').value);
-        const condition = document.getElementById('condition').value;
+    document.getElementById('resultText').innerText = resultText;
+    document.getElementById('evaluationResult').style.display = 'block';
+}
 
-        let baseValue = 0;
-        switch (make + '-' + model) {
-            case 'volvo-fh':
-                baseValue = 75000;
-                break;
-            case 'scania-r-series':
-                baseValue = 80000;
-                break;
-            case 'mercedes-actros':
-                baseValue = 77000;
-                break;
-            case 'daf-xf':
-                baseValue = 72000;
-                break;
-            case 'iveco-stralis':
-                baseValue = 70000;
-                break;
-            default:
-                baseValue = 70000;
-        }
+// Calculate Residual Value Function
+function calculateResidualValue() {
+    const make = document.getElementById('make').value;
+    const model = document.getElementById('model').value;
+    const age = parseFloat(document.getElementById('age').value);
+    const mileage = parseFloat(document.getElementById('mileage').value);
+    const condition = document.getElementById('condition').value;
 
-        let depreciationRate = 0.15;
-        switch (condition) {
-            case 'excellent':
-                depreciationRate = 0.10;
-                break;
-            case 'good':
-                depreciationRate = 0.12;
-                break;
-            case 'fair':
-                depreciationRate = 0.15;
-                break;
-            case 'poor':
-                depreciationRate = 0.20;
-                break;
-        }
-
-        let residualValue = baseValue * Math.pow((1 - depreciationRate), age);
-        residualValue -= (mileage / 10000) * 1000;
-
-        residualValue = residualValue < 0 ? 0 : residualValue;
-
-        document.getElementById('residualValueText').innerText = `The estimated residual value of the ${make.toUpperCase()} ${model.toUpperCase()} is €${residualValue.toFixed(2)}.`;
-        document.getElementById('residualValueResult').style.display = 'block';
+    let baseValue = 0;
+    switch (make + '-' + model) {
+        case 'volvo-fh':
+            baseValue = 75000;
+            break;
+        case 'scania-r-series':
+            baseValue = 80000;
+            break;
+        case 'mercedes-actros':
+            baseValue = 77000;
+            break;
+        case 'daf-xf':
+            baseValue = 72000;
+            break;
+        case 'iveco-stralis':
+            baseValue = 70000;
+            break;
+        default:
+            baseValue = 70000;
     }
+
+    let depreciationRate = 0.15;
+    switch (condition) {
+        case 'excellent':
+            depreciationRate = 0.10;
+            break;
+        case 'good':
+            depreciationRate = 0.12;
+            break;
+        case 'fair':
+            depreciationRate = 0.15;
+            break;
+        case 'poor':
+            depreciationRate = 0.20;
+            break;
+    }
+
+    let residualValue = baseValue * Math.pow((1 - depreciationRate), age);
+    residualValue -= (mileage / 10000) * 1000;
+
+    residualValue = residualValue < 0 ? 0 : residualValue;
+
+    document.getElementById('residualValueText').innerText = `The estimated residual value of the ${make.toUpperCase()} ${model.toUpperCase()} is €${residualValue.toFixed(2)}.`;
+    document.getElementById('residualValueResult').style.display = 'block';
+}
+
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
