@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Electrification Solutions - Break-Even Tool</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #004080;
+        }
+        .tool-section {
+            padding: 3rem 0;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            border-top: 2px solid #004080;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" alt="Company Logo">
+            Fleet Electrification
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="solutions.html">Solutions</a></li>
+                <li class="nav-item"><a class="nav-link" href="legislation.html">Legislation</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Tool Section -->
+    <div class="tool-section">
+        <div class="container">
+            <h2 class="text-center mb-4">Truck Break-Even Calculator</h2>
+            <form id="truckForm" class="mb-4">
+                <div class="form-group">
+                    <label for="licensePlate">License Plate:</label>
+                    <input type="text" class="form-control" id="licensePlate" placeholder="Enter license plate">
+                </div>
+                <div class="form-group">
+                    <label for="currentMileage">Current Mileage (km):</label>
+                    <input type="number" class="form-control" id="currentMileage" placeholder="Enter current mileage">
+                </div>
+                <div class="form-group">
+                    <label for="annualMileage">Estimated Annual Mileage (km):</label>
+                    <input type="number" class="form-control" id="annualMileage" placeholder="Enter annual mileage">
+                </div>
+                <div class="form-group">
+                    <label for="loadCapacity">Annual Load Capacity Utilization (%):</label>
+                    <input type="number" class="form-control" id="loadCapacity" placeholder="Enter load capacity utilization">
+                </div>
+                <button type="button" class="btn btn-primary btn-block" onclick="calculateBreakEven()">Calculate Break-Even</button>
+            </form>
+
+            <div id="results" class="results"></div>
+            <canvas id="breakEvenChart"></canvas>
+            <div id="calculationDetails"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Fleet Electrification Solutions. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let breakEvenChart;
+
+        function calculateBreakEven() {
+            // Default truck details for DAF XF 530 Euro 6 and DAF CF Electric
+            const dieselPrice = 1.50; // €/liter
+            const electricPrice = 0.22; // €/kWh
+            const dieselEfficiency = 30; // liters/100km
+            const electricEfficiency = 0.25; // kWh/km
+            const tollDiesel = 0.12; // €/km
+            const tollElectric = 0.08; // €/km
+            const maintenanceDiesel = 8000; // €/year
+            const maintenanceElectric = 3000; // €/year
+            const insuranceDiesel = 4000; // €/year
+            const insuranceElectric = 5000; // €/year
+            const depreciationDiesel = 5000; // €/year
+            const depreciationElectric = 10000; // €/year
+            const electricTruckCost = 250000; // €
+            const subsidy = 40000; // €
+            const resaleDiesel = 30000; // €
+            const batteryReplacement = 50000; // € (after 7 years)
+            const co2DieselPerLiter = 2.64; // kg CO₂/liter
+            const co2ElectricPerKwh = 0.1; // kg CO₂/kWh
+            const annualTruckTaxDiesel = 2400; // €/year
+            const annualTruckTaxElectric = 600; // €/year
+            const chargingInfrastructureCost = 10000; // € (initial for electric trucks)
+
+            // User input
+            const licensePlate = document.getElementById("licensePlate").value;
+            const currentMileage = parseFloat(document.getElementById("currentMileage").value);
+            const annualMileage = parseFloat(document.getElementById("annualMileage").value);
+            const loadCapacity = parseFloat(document.getElementById("loadCapacity").value);
+
+            // Validate inputs
+            if (isNaN(currentMileage) || isNaN(annualMileage) || isNaN(loadCapacity)) {
+                alert("Please fill in all fields correctly.");
+                return;
+            }
+
+            // Initial Costs
+            const netElectricTruckCost = electricTruckCost - subsidy - resaleDiesel + chargingInfrastructureCost;
+
+            // Annual Costs
+            const dieselFuelCost = (annualMileage * dieselEfficiency / 100) * dieselPrice;
+            const electricEnergyCost = (annualMileage * electricEfficiency) * electricPrice;
+            const tollCostDiesel = annualMileage * tollDiesel;
+            const tollCostElectric = annualMileage * tollElectric;
+            const totalAnnualDieselCost = dieselFuelCost + maintenanceDiesel + insuranceDiesel + tollCostDiesel + depreciationDiesel + annualTruckTaxDiesel;
+            const totalAnnualElectricCost = electricEnergyCost + maintenanceElectric + insuranceElectric + tollCostElectric + depreciationElectric + annualTruckTaxElectric;
+
+            // CO2 Emissions
+            const annualCO2Diesel = (annualMileage * dieselEfficiency / 100) * co2DieselPerLiter;
+            const annualCO2Electric = (annualMileage * electricEfficiency) * co2ElectricPerKwh;
+
+            // Break-even Calculation
+            let cumulativeDieselCost = 0;
+            let cumulativeElectricCost = netElectricTruckCost;
+            let breakEvenYear = null;
+            const results = [];
+            const dieselCosts = [];
+            const electricCosts = [];
+            const years = [];
+
+            for (let year = 1; year <= 10; year++) {
+                cumulativeDieselCost += totalAnnualDieselCost;
+                cumulativeElectricCost += totalAnnualElectricCost;
+                if (year === 7) cumulativeElectricCost += batteryReplacement; // Add battery replacement cost
+
+                results.push({ year, cumulativeDieselCost, cumulativeElectricCost });
+                dieselCosts.push(cumulativeDieselCost);
+                electricCosts.push(cumulativeElectricCost);
+                years.push(year);
+
+                if (breakEvenYear === null && cumulativeElectricCost < cumulativeDieselCost) {
+                    breakEvenYear = year;
+                }
+            }
+
+            // Display Results
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = `
+                <h3>Results</h3>
+                <p><strong>Diesel Truck Model:</strong> DAF XF 530 Euro 6</p>
+                <p><strong>Electric Truck Model:</strong> DAF CF Electric</p>
+                <p><strong>License Plate:</strong> ${licensePlate || "N/A"}</p>
+                <p><strong>Net Electric Truck Cost:</strong> €${netElectricTruckCost.toFixed(2)}</p>
+                <p><strong>Annual Diesel Costs:</strong> €${totalAnnualDieselCost.toFixed(2)}</p>
+                <p><strong>Annual Electric Costs:</strong> €${totalAnnualElectricCost.toFixed(2)}</p>
+                <p><strong>Annual CO₂ Emissions (Diesel):</strong> ${annualCO2Diesel.toFixed(2)} kg</p>
+                <p><strong>Annual CO₂ Emissions (Electric):</strong> ${annualCO2Electric.toFixed(2)} kg</p>
+                <p><strong>Break-even Year:</strong> ${breakEvenYear || "Not within 10 years"}</p>
+            `;
+
+            // Generate or Update Chart
+            const ctx = document.getElementById('breakEvenChart').getContext('2d');
+            if (breakEvenChart) {
+                breakEvenChart.destroy();
+            }
+            breakEvenChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Cumulative Diesel Cost (€)',
+                            data: dieselCosts,
+                            borderColor: 'red',
+                            fill: false
+                        },
+                        {
+                            label: 'Cumulative Electric Cost (€)',
+                            data: electricCosts,
+                            borderColor: 'blue',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Break-even Analysis: Diesel vs Electric Truck'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Cumulative Cost (€)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
